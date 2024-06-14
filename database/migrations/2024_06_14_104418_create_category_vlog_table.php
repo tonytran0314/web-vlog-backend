@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('category_vlog', function (Blueprint $table) {
-            $table->integer('vlog_id');
-            $table->integer('category_id');
+            $table->unsignedBiginteger('vlog_id');
+            $table->unsignedBiginteger('category_id');
+
+            $table->foreign('vlog_id')->references('id')->on('vlog')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
