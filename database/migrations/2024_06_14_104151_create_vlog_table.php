@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->string('thumpnail');
+            $table->string('thumbnail');
             $table->boolean('public');
             $table->timestamps();
         });

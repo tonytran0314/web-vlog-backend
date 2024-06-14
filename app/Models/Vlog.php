@@ -10,10 +10,12 @@ class Vlog extends Model
 {
     use HasFactory;
 
+    protected $table = 'vlog';
+
     protected $fillable = [
         'title',
         'description',
-        'thumpnail',
+        'thumbnail',
         'public',
     ];
 
