@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Vlog;
-use App\Models\Category;
+use Database\Seeders\VlogSeeder;
+use Database\Seeders\CategorySeeder;
+use Database\Seeders\CategoryVlogSeeder;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Vlog::factory(20)->create();
-        Category::factory(30)->create();
+        $this->call([
+            VlogSeeder::class,
+            CategorySeeder::class,
+            CategoryVlogSeeder::class,
+        ]);
     }
 }

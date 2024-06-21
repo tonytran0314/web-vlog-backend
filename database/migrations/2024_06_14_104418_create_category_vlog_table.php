@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreign('vlog_id')->references('id')->on('vlog')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
 
+            $table->unique(['vlog_id', 'category_id']); 
+            
             $table->timestamps();
         });
     }
