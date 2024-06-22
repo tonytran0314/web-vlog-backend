@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\v1;
 
+use App\Models\Vlog;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,7 +20,8 @@ class VlogResource extends JsonResource
             'description' => $this->description,
             'thumbnail' => $this->thumbnail,
             'public' => $this->public,
-            'date' => $this->created_at
+            'date' => $this->created_at,
+            'categories' => CategoryResource::collection(Vlog::find($this->id)->categories)
         ];
     }
 }
