@@ -10,7 +10,7 @@ use App\Models\Vlog;
 
 class VlogController extends Controller
 {
-    protected $numberOfLatestVlogs = 4;
+    protected $numberOfLatestVlogs = 8;
 
     /**
      * Display a listing of the resource.
