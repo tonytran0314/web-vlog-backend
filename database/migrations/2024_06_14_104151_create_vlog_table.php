@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('vlog', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug');
             $table->string('description');
             $table->string('thumbnail');
             $table->boolean('public');

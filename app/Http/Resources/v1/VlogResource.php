@@ -17,6 +17,7 @@ class VlogResource extends JsonResource
     {
         return [
             'title' => $this->title,
+            'slug' => $this->slug,
             'description' => $this->description,
             'thumbnail' => $this->thumbnail,
             'public' => $this->public,

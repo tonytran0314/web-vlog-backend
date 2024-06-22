@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Vlog>
@@ -16,8 +17,11 @@ class VlogFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->sentence();
+
         return [
-            'title' => fake()->sentence(),
+            'title' => $title,
+            'slug' => Str::slug($title),
             'description' => fake()->sentence(),
             'thumbnail' => fake()->sentence(),
             'public' => true
