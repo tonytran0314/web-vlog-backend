@@ -11,13 +11,16 @@ use App\Models\Vlog;
 class VlogController extends Controller
 {
     protected $numberOfLatestVlogs = 8;
+    protected $vlogsPerPage = 24;
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return VlogResource::collection(Vlog::all());
+        $vlogs = Vlog::latest()->paginate($this->vlogsPerPage);
+
+        return VlogResource::collection($vlogs);
     }
 
     public function getLatestVlogs() {

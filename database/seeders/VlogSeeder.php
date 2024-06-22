@@ -15,7 +15,7 @@ class VlogSeeder extends Seeder
     public function run(): void
     {
         $now = Carbon::now();
-        $numberOfPosts = 20; // Adjust the number as needed
+        $numberOfPosts = 200;
 
         for ($i = 0; $i < $numberOfPosts; $i++) {
             Vlog::factory()->create([
@@ -23,6 +23,5 @@ class VlogSeeder extends Seeder
                 'updated_at' => $now->copy()->addSeconds($i),
             ]);
         }
-        // Vlog::factory(20)->create();
     }
 }
