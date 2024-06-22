@@ -10,12 +10,22 @@ use App\Models\Vlog;
 
 class VlogController extends Controller
 {
+    protected $numberOfLatestVlogs = 4;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return VlogResource::collection(Vlog::all());
+    }
+
+    public function getLatestVlogs() {
+        $latestVlogs = Vlog::latest()
+                            ->take($this->numberOfLatestVlogs)
+                            ->get();
+
+        return VlogResource::collection($latestVlogs);
     }
 
     /**
