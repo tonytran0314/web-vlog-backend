@@ -26,7 +26,7 @@ class VlogController extends Controller
         $params = [
             'currentPage' => $currentPage,
             'lastPage' => $lastPage,
-            'path' => 'api/v1/vlogs'
+            // 'path' => 'api/v1/vlogs'
         ]; 
         
         $links = customLinks($params);

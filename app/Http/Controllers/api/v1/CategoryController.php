@@ -43,7 +43,7 @@ class CategoryController extends Controller
         $params = [
             'currentPage' => $currentPage,
             'lastPage' => $lastPage,
-            'path' => 'api/v1/categories/'.$slug
+            // 'path' => 'api/v1/categories/'.$slug
         ]; 
         
         $links = customLinks($params);
