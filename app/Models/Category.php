@@ -19,7 +19,7 @@ class Category extends Model
 
     public function vlogs(): BelongsToMany
     {
-        return $this->belongsToMany(Vlog::class);
+        return $this->belongsToMany(Vlog::class)->orderBy('created_at', 'desc');
     }
 
     public function scopeSlug(Builder $query, $slug): void {

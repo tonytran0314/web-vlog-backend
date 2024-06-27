@@ -18,10 +18,7 @@ class VlogController extends Controller
      */
     public function index()
     {
-        // $vlogs = Vlog::latest()->paginate($this->vlogsPerPage);
-
-        // return VlogResource::collection($vlogs);
-        $vlogs = Vlog::latest()->paginate($this->vlogsPerPage);
+        $vlogs = Vlog::paginate($this->vlogsPerPage);
 
         $currentPage = $vlogs->currentPage();
         $lastPage = $vlogs->lastPage();
@@ -67,9 +64,7 @@ class VlogController extends Controller
     }
 
     public function getLatestVlogs() {
-        $latestVlogs = Vlog::latest()
-                            ->take($this->numberOfLatestVlogs)
-                            ->get();
+        $latestVlogs = Vlog::take($this->numberOfLatestVlogs)->get();
 
         return VlogResource::collection($latestVlogs);
     }

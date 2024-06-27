@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    protected $vlogsPerPage = 24;
+    
     /**
      * Display a listing of the resource.
      */
@@ -32,8 +34,10 @@ class CategoryController extends Controller
      */
     public function show(string $slug)
     {
-        $category = Category::slug($slug)->first();
-        $vlogsByCategory = $category->vlogs;
+        $category = Category::slug($slug)->firstOrFail();
+
+        $vlogsByCategory = $category->vlogs->take($this->vlogsPerPage);
+
         return VlogResource::collection($vlogsByCategory);
     }
 

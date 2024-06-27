@@ -20,12 +20,16 @@ class Vlog extends Model
         'public',
     ];
 
+    protected static function boot() {
+        parent::boot();
+
+        static::addGlobalScope('order', function(Builder $query){
+            $query->orderBy('created_at', 'desc');
+        });
+    }
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
-    }
-
-    public function scopeLatest(Builder $query): void {
-        $query->where('created_at', 'desc');
     }
 }
