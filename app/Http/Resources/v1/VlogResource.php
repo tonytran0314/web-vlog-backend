@@ -22,7 +22,9 @@ class VlogResource extends JsonResource
             'thumbnail' => $this->thumbnail,
             'public' => $this->public,
             'date' => $this->created_at,
-            'categories' => CategoryResource::collection(Vlog::find($this->id)->categories)
+            'categories' => CategoryResource::collection(
+                Vlog::find($this->id)->categories()->get()
+            )
         ];
     }
 }

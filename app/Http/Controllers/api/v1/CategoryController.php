@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    protected $vlogsPerPage = 24;
+    protected $vlogsPerPage = 1;
     
     /**
      * Display a listing of the resource.
@@ -35,10 +35,27 @@ class CategoryController extends Controller
     public function show(string $slug)
     {
         $category = Category::slug($slug)->firstOrFail();
+        $vlogsByCategory = $category->vlogs()->paginate($this->vlogsPerPage);
 
-        $vlogsByCategory = $category->vlogs->take($this->vlogsPerPage);
+        $currentPage = $vlogsByCategory->currentPage();
+        $lastPage = $vlogsByCategory->lastPage();
 
-        return VlogResource::collection($vlogsByCategory);
+        $params = [
+            'currentPage' => $currentPage,
+            'lastPage' => $lastPage,
+            'path' => 'api/v1/categories/'.$slug
+        ]; 
+        
+        $links = customLinks($params);
+
+        return response()->json([
+            'data' => VlogResource::collection($vlogsByCategory->items()),
+            'pagination' => [
+                'currentPage' => $currentPage,
+                'total' => $vlogsByCategory->total(),
+                'links' => $links
+            ]
+        ]);
     }
 
     /**

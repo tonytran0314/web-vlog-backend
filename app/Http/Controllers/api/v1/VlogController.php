@@ -23,7 +23,13 @@ class VlogController extends Controller
         $currentPage = $vlogs->currentPage();
         $lastPage = $vlogs->lastPage();
         
-        $links = $this->customLinks($currentPage, $lastPage);
+        $params = [
+            'currentPage' => $currentPage,
+            'lastPage' => $lastPage,
+            'path' => 'api/v1/vlogs'
+        ]; 
+        
+        $links = customLinks($params);
 
         return response()->json([
             'data' => VlogResource::collection($vlogs->items()),
@@ -33,34 +39,6 @@ class VlogController extends Controller
                 'links' => $links
             ]
         ]);
-    }
-
-    private function customLinks($currentPage, $lastPage) {
-        $links = [];
-        $startPage = max(1, $currentPage - 2);
-        $endPage = min($lastPage, $currentPage + 2);
-
-        $links[] = [
-            'url' => $currentPage > 1 ? route('vlogs.index', ['page' => $currentPage - 1]) : null,
-            'label' => 'Trang trước',
-            'active' => false,
-        ];
-
-        for ($page = $startPage; $page <= $endPage; $page++) {
-            $links[] = [
-                'url' => route('vlogs.index', ['page' => $page]),
-                'label' => $page,
-                'active' => $page == $currentPage,
-            ];
-        }
-
-        $links[] = [
-            'url' => $currentPage < $lastPage ? route('vlogs.index', ['page' => $currentPage + 1]) : null,
-            'label' => 'Trang sau',
-            'active' => false,
-        ];
-
-        return $links;
     }
 
     public function getLatestVlogs() {
