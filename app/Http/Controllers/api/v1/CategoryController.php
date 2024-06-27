@@ -4,7 +4,9 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\CategoryResource;
+use App\Http\Resources\v1\VlogResource;
 use App\Models\Category;
+use App\Models\Vlog;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -28,9 +30,11 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        //
+        $category = Category::slug($slug)->first();
+        $vlogsByCategory = $category->vlogs;
+        return VlogResource::collection($vlogsByCategory);
     }
 
     /**

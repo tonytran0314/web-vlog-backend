@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Category extends Model
 {
@@ -19,5 +20,9 @@ class Category extends Model
     public function vlogs(): BelongsToMany
     {
         return $this->belongsToMany(Vlog::class);
+    }
+
+    public function scopeSlug(Builder $query, $slug): void {
+        $query->where('slug', $slug);
     }
 }
