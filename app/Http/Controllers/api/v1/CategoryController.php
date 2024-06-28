@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    protected $vlogsPerPage = 1;
+    protected $vlogsPerPage = 24;
     
     /**
      * Display a listing of the resource.
@@ -52,7 +52,8 @@ class CategoryController extends Controller
             'header' => $category->name,
             'pagination' => [
                 'currentPage' => $currentPage,
-                'total' => $vlogsByCategory->total(),
+                'totalPages' => $lastPage,
+                'totalVlogs' => $vlogsByCategory->total(),
                 'links' => $links
             ]
         ]);

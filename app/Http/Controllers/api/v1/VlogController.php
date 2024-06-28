@@ -37,7 +37,8 @@ class VlogController extends Controller
             'header' => $this->header,
             'pagination' => [
                 'currentPage' => $currentPage,
-                'total' => $vlogs->total(),
+                'totalPages' => $lastPage,
+                'totalVlogs' => $vlogs->total(),
                 'links' => $links
             ]
         ]);
