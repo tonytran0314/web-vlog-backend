@@ -12,6 +12,7 @@ class VlogController extends Controller
 {
     protected $numberOfLatestVlogs = 8;
     protected $vlogsPerPage = 24;
+    protected $header = 'Tất cả vlogs';
 
     /**
      * Display a listing of the resource.
@@ -33,6 +34,7 @@ class VlogController extends Controller
 
         return response()->json([
             'data' => VlogResource::collection($vlogs->items()),
+            'header' => $this->header,
             'pagination' => [
                 'currentPage' => $currentPage,
                 'total' => $vlogs->total(),

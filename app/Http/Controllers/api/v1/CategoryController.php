@@ -43,13 +43,13 @@ class CategoryController extends Controller
         $params = [
             'currentPage' => $currentPage,
             'lastPage' => $lastPage,
-            // 'path' => 'api/v1/categories/'.$slug
         ]; 
         
         $links = customLinks($params);
 
         return response()->json([
             'data' => VlogResource::collection($vlogsByCategory->items()),
+            'header' => $category->name,
             'pagination' => [
                 'currentPage' => $currentPage,
                 'total' => $vlogsByCategory->total(),
