@@ -10,7 +10,7 @@ use App\Models\Vlog;
 
 class VlogController extends Controller
 {
-    protected $numberOfLatestVlogs = 8;
+    protected $vlogsPerFeature = 8;
     protected $vlogsPerPage = 24;
     protected $header = 'Tất cả vlogs';
 
@@ -27,7 +27,6 @@ class VlogController extends Controller
         $params = [
             'currentPage' => $currentPage,
             'lastPage' => $lastPage,
-            // 'path' => 'api/v1/vlogs'
         ]; 
         
         $links = customLinks($params);
@@ -45,7 +44,7 @@ class VlogController extends Controller
     }
 
     public function getLatestVlogs() {
-        $latestVlogs = Vlog::take($this->numberOfLatestVlogs)->get();
+        $latestVlogs = Vlog::take($this->vlogsPerFeature)->get();
 
         return VlogResource::collection($latestVlogs);
     }

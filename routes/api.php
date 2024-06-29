@@ -10,6 +10,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('categories', CategoryController::class);
 
     Route::get('latest-vlogs', [VlogController::class, 'getLatestVlogs']);
+    Route::get('feature/{slug}', [CategoryController::class, 'getFeaturedVlogsByCategory']);
 
     Route::get('/', function() {
         return 'hello';

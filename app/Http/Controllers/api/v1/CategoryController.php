@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    // find the way to declare once but use many times
+    protected $vlogsPerFeature = 8;
     protected $vlogsPerPage = 24;
     
     /**
@@ -30,7 +32,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Return vlogs by category
      */
     public function show(string $slug)
     {
@@ -57,6 +59,13 @@ class CategoryController extends Controller
                 'links' => $links
             ]
         ]);
+    }
+
+    public function getFeaturedVlogsByCategory (string $slug) {
+        $category = Category::slug($slug)->firstOrFail();
+        $featuredVlogsByCategory = $category->vlogs()->take($this->vlogsPerFeature)->get();
+
+        return VlogResource::collection($featuredVlogsByCategory);
     }
 
     /**
