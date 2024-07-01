@@ -60,9 +60,10 @@ class VlogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        //
+        $vlog = Vlog::slug($slug)->firstOrFail();
+        return new VlogResource($vlog);
     }
 
     /**

@@ -32,4 +32,8 @@ class Vlog extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function scopeSlug(Builder $query, $slug): void {
+        $query->where('slug', $slug);
+    }
 }
