@@ -8,6 +8,7 @@ use App\Http\Resources\v1\VlogResource;
 use App\Models\Category;
 use App\Models\Vlog;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CategoryController extends Controller
 {
@@ -38,7 +39,9 @@ class CategoryController extends Controller
     {
         $category = Category::slug($slug)->firstOrFail();
         $vlogsByCategory = $category->vlogs()->paginate($this->vlogsPerPage);
-
+        if ($vlogsByCategory->isEmpty()) {
+            throw new ModelNotFoundException();
+        }
         $currentPage = $vlogsByCategory->currentPage();
         $lastPage = $vlogsByCategory->lastPage();
 
@@ -50,7 +53,7 @@ class CategoryController extends Controller
         $links = customLinks($params);
 
         return response()->json([
-            'data' => VlogResource::collection($vlogsByCategory->items()),
+            'data' => VlogResource::collection($vlogsByCategory),
             'header' => $category->name,
             'pagination' => [
                 'currentPage' => $currentPage,
