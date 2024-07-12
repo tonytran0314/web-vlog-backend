@@ -15,7 +15,10 @@ class VlogResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        static $dummyId = 1;
+
         return [
+            'id' => $dummyId++,
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,
