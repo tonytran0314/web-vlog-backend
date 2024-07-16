@@ -32,3 +32,13 @@ if (!function_exists('customLinks')) {
         return $links;
     }
 }
+
+if (!function_exists('dateFormatter')) {
+    function dateFormatter($timestamp) {
+        // nên làm format '2 giờ trước', '2 tháng trước' hoặc cứ trả như này, rồi bên frontend sẽ đảm nhiệm phần đổi ra giờ trc, tháng trc khi bấm full description
+        $date = new DateTime($timestamp);
+        $formattedDate = $date->format('d/m/y H:i'); // y hiện 24, Y hiện 2024
+    
+        return $formattedDate;
+    }
+}
