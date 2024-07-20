@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\VlogResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Vlog;
 
@@ -80,5 +81,20 @@ class VlogController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function video($filename) {
+        $path = storage_path('app/public/'.$filename);
+        
+        if(!file_exists($path)) {
+            abort(404);
+        }
+
+        $response = response()->file($path, [
+            'Content-Type' => mime_content_type($path),
+            'Content-Length' => filesize($path),
+            'Accept-Ranges' => 'bytes',
+        ]);
+        return $response;
     }
 }

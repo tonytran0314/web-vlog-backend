@@ -12,6 +12,8 @@ Route::prefix('v1')->group(function () {
     Route::get('latest-vlogs', [VlogController::class, 'getLatestVlogs']);
     Route::get('feature/{slug}', [CategoryController::class, 'getFeaturedVlogsByCategory']);
 
+    Route::get('/video/{filename}', [VlogController::class, 'video']);
+
     Route::get('/', function() {
         return 'hello';
     })->domain('admin.' . env('APP_URL'));
