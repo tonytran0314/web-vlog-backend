@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\VlogResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\HttpResponses;
 
 use App\Models\Vlog;
 
 class VlogController extends Controller
 {
+    use HttpResponses;
+
     protected $vlogsPerFeature = 8;
     protected $vlogsPerPage = 24;
     protected $header = 'Tất cả vlogs';

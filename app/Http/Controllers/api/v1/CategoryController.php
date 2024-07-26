@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\v1\StoreCategoryRequest;
 use App\Http\Resources\v1\CategoryResource;
 use App\Http\Resources\v1\VlogResource;
 use App\Models\Category;
 use App\Models\Vlog;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    use HttpResponses;
+
     // find the way to declare once but use many times
     protected $vlogsPerFeature = 8;
     protected $vlogsPerPage = 24;
@@ -27,9 +32,15 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        //
+        $validatedCategory = $request->validated();
+
+        $addedCategory = Category::create($validatedCategory);
+
+        return $addedCategory ? 
+            $this->success(null, 'Added Category', 200) : 
+            $this->error('Failed to add category', 400);
     }
 
     /**
