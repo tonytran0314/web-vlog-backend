@@ -26,7 +26,7 @@ class StoreCategoryRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                'regex: /^[\p{L}\p{N}]+$/u'
+                'regex: /^[\p{L}\p{N} ]+$/u'
             ]
         ];
     }
