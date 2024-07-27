@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\v1\StoreCategoryRequest;
+use App\Http\Requests\v1\CategoryRequest;
 use App\Http\Resources\v1\CategoryResource;
 use App\Http\Resources\v1\VlogResource;
 use App\Models\Category;
@@ -32,7 +32,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(CategoryRequest $request)
     {
         $validatedCategory = $request->validated();
 
@@ -85,9 +85,17 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, string $id)
     {
-        //
+        $validatedCategory = $request->validated();
+
+        $category = Category::findOrFail($id);
+
+        $updatedCategory = $category->update($validatedCategory);
+
+        return $updatedCategory ? 
+            $this->success(null, 'Updated Category', 200) : 
+            $this->error('Failed to update category', 400);
     }
 
     /**
