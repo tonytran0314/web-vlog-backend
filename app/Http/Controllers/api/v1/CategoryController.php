@@ -20,13 +20,34 @@ class CategoryController extends Controller
     // find the way to declare once but use many times
     protected $vlogsPerFeature = 8;
     protected $vlogsPerPage = 24;
+    protected $categoriesPerPage = 24;
     
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return CategoryResource::collection(Category::orderBy('created_at', 'desc')->get());
+        $categories = Category::orderBy('created_at', 'desc')->paginate($this->categoriesPerPage);
+
+        $currentPage = $categories->currentPage();
+        $lastPage = $categories->lastPage();
+        
+        $params = [
+            'currentPage' => $currentPage,
+            'lastPage' => $lastPage,
+        ]; 
+        
+        $links = customLinks($params);
+
+        return response()->json([
+            'data' => CategoryResource::collection($categories->items()),
+            'pagination' => [
+                'currentPage' => $currentPage,
+                'totalPages' => $lastPage,
+                'totalCategories' => $categories->total(),
+                'links' => $links
+            ]
+        ]);
     }
 
     /**
