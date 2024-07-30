@@ -60,7 +60,7 @@ class CategoryController extends Controller
         $addedCategory = Category::create($validatedCategory);
 
         return $addedCategory ? 
-            $this->success(null, 'Added Category', 200) : 
+            $this->success(new CategoryResource($addedCategory), 'Added Category', 200) : 
             $this->error('Failed to add category', 400);
     }
 
