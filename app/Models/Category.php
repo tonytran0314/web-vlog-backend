@@ -41,6 +41,7 @@ class Category extends Model
         });
     }
 
+    // this one should be a helper
     public static function generateUniqueSlug($name, $id = null)
     {
         $slug = Str::slug($name);

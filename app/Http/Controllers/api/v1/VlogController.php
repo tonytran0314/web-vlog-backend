@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\v1\VlogRequest;
 use App\Http\Resources\v1\VlogResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -56,9 +57,24 @@ class VlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(VlogRequest $request)
     {
-        // return $request->file('video')->store('videos');
+        $validatedVlog = $request->validated();
+
+        $thumbnail = $request->file('thumbnail')->store('thumbnails');
+        $video = $request->file('video')->store('videos');
+
+        $newVlog = Vlog::create([
+            'title' => $validatedVlog['title'],
+            'description' => $validatedVlog['description'],
+            'thumbnail' => basename($thumbnail),
+            'video' => basename($video),
+            'public' => $validatedVlog['public'],
+        ]);
+
+        return $newVlog ? 
+            $this->success(null, 'Added Vlog', 200) : 
+            $this->error('Failed to add vlog', 400);
     }
 
     /**
