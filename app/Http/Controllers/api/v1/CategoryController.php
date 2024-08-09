@@ -124,6 +124,14 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $vlogsByCategory = $category->vlogs()->get()->count();
+        
+        if($vlogsByCategory === 0) {
+            $category->delete();
+            return $this->success(null, 'Deleted Category', 200);
+        }
+
+        return $this->error('You can only delete categories that have no vlogs', 400);
     }
 }
