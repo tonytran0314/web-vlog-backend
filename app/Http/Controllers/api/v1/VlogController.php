@@ -58,7 +58,7 @@ class VlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request->file('video')->store('videos');
     }
 
     /**
@@ -87,7 +87,7 @@ class VlogController extends Controller
     }
 
     public function video($filename) {
-        $path = storage_path('app/public/'.$filename);
+        $path = storage_path('app/videos/'.$filename);
         
         if(!file_exists($path)) {
             abort(404);
