@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('description');
             $table->string('thumbnail');
+            $table->string('video');
             $table->boolean('public');
             $table->timestamps();
         });

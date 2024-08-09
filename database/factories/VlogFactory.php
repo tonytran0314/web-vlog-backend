@@ -24,6 +24,7 @@ class VlogFactory extends Factory
             'slug' => Str::slug($title),
             'description' => fake()->sentence(),
             'thumbnail' => fake()->sentence(),
+            'video' => fake()->sentence(),
             'public' => true
         ];
     }
