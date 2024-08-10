@@ -50,6 +50,10 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function list() {
+        return CategoryResource::collection(Category::all());
+    }
+
     /**
      * Store a newly created resource in storage.
      */
