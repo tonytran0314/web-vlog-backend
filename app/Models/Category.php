@@ -39,6 +39,10 @@ class Category extends Model
         static::updating(function ($category) {
             $category->slug = self::generateUniqueSlug($category->name, $category->id);
         });
+
+        static::addGlobalScope('order', function(Builder $query){
+            $query->orderBy('created_at', 'desc');
+        });
     }
 
     // this one should be a helper
