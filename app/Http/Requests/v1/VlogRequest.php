@@ -44,6 +44,9 @@ class VlogRequest extends FormRequest
             'public' => [
                 'required',
                 'boolean',
+            ],
+            'categories' => [
+                'required'
             ]
         ];
     }

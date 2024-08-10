@@ -72,6 +72,9 @@ class VlogController extends Controller
             'public' => $validatedVlog['public'],
         ]);
 
+        $addedVlog = Vlog::find($newVlog->id);
+        $addedVlog->categories()->attach(json_decode($validatedVlog['categories']));
+
         return $newVlog ? 
             $this->success(null, 'Added Vlog', 200) : 
             $this->error('Failed to add vlog', 400);
@@ -91,7 +94,7 @@ class VlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // use sync (related to attach)
     }
 
     /**
