@@ -76,7 +76,7 @@ class VlogController extends Controller
         $addedVlog->categories()->attach(json_decode($validatedVlog['categories']));
 
         return $newVlog ? 
-            $this->success(null, 'Added Vlog', 200) : 
+            $this->success(new VlogResource($addedVlog), 'Added Vlog', 200) : 
             $this->error('Failed to add vlog', 400);
     }
 
