@@ -92,9 +92,28 @@ class VlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(VlogRequest $request, string $id)
     {
-        // use sync (related to attach)
+        $validatedVlog = $request->validated();
+
+        $vlog = Vlog::find($id);
+
+        $vlog->title = $validatedVlog['title'];
+        $vlog->description = $validatedVlog['description'];
+        $vlog->public = $validatedVlog['public'];
+
+        // thumbnail
+        if($request->file('thumbnail')) {
+            $thumbnail = $request->file('thumbnail')->store('thumbnails');
+            $vlog->thumbnail = basename($thumbnail);
+        }
+
+        // category
+        $vlog->categories()->sync($validatedVlog['categories']);
+
+        $vlog->save();
+
+        return $this->success(null, 'Updated Vlog', 200);
     }
 
     /**

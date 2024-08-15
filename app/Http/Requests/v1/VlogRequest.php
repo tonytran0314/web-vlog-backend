@@ -21,7 +21,7 @@ class VlogRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'title' => [
                 'required',
                 'string',
@@ -31,16 +31,6 @@ class VlogRequest extends FormRequest
                 'required',
                 'string'
             ],
-            'thumbnail' => [
-                'required',
-                'file',
-                'mimes:jpg,png'
-            ],
-            'video' => [
-                'required',
-                'file',
-                'mimes:mp4'
-            ],
             'public' => [
                 'required',
                 'boolean',
@@ -49,5 +39,20 @@ class VlogRequest extends FormRequest
                 'required'
             ]
         ];
+
+        if($this->isMethod('post')) {
+            $rules['video'] = [
+                'required',
+                'file',
+                'mimes:mp4'
+            ];
+            $rules['thumbnail'] = [
+                'required',
+                'file',
+                'mimes:jpg,png'
+            ];
+        }
+
+        return $rules;
     }
 }
