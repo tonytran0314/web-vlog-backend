@@ -138,4 +138,16 @@ class VlogController extends Controller
         ]);
         return $response;
     }
+
+    public function thumbnail($filename) {
+        $path = storage_path('app/thumbnails/'.$filename);
+        
+        if(!file_exists($path)) {
+            abort(404);
+        }
+
+        $response = response()->file($path);
+        
+        return $response;
+    }
 }

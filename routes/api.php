@@ -15,6 +15,7 @@ Route::prefix('v1')->group(function () {
     Route::get('feature/{slug}', [CategoryController::class, 'getFeaturedVlogsByCategory']);
 
     Route::get('/video/{filename}', [VlogController::class, 'video']);
+    Route::get('/thumbnail/{filename}', [VlogController::class, 'thumbnail']);
 
     Route::get('/', function() {
         return 'hello';
