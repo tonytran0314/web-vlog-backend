@@ -22,7 +22,7 @@ class VlogResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,
-            'thumbnail' => $this->thumbnail,
+            'thumbnail' => route('thumbnail', $this->thumbnail),
             'public' => $this->public,
             'date' => dateFormatter($this->created_at),
             'categories' => CategoryResource::collection(
