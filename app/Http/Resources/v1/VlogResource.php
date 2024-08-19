@@ -20,6 +20,7 @@ class VlogResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,
+            'video' => route('video', $this->video),
             'thumbnail' => route('thumbnail', $this->thumbnail),
             'public' => $this->public,
             'date' => dateFormatter($this->created_at),

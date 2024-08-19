@@ -14,7 +14,7 @@ Route::prefix('v1')->group(function () {
     Route::get('latest-vlogs', [VlogController::class, 'getLatestVlogs']);
     Route::get('feature/{slug}', [CategoryController::class, 'getFeaturedVlogsByCategory']);
 
-    Route::get('/video/{filename}', [VlogController::class, 'video']);
+    Route::get('/video/{filename}', [VlogController::class, 'video'])->name('video');
     Route::get('/thumbnail/{filename}', [VlogController::class, 'thumbnail'])->name('thumbnail');
 
     Route::get('/', function() {
