@@ -123,7 +123,11 @@ class VlogController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $vlog = Vlog::findOrFail($id);
+        
+        $vlog->delete();
+        
+        return $this->success(null, 'Deleted Vlog', 200);
     }
 
     public function video($filename) {
