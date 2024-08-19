@@ -59,6 +59,8 @@ class VlogController extends Controller
      */
     public function store(VlogRequest $request)
     {
+        // Chỗ này không cần, truyền VlogRequest vào hàm là nó tự validate rồi.
+        // Các chỗ còn lại xài $request->field
         $validatedVlog = $request->validated();
 
         $thumbnail = $request->file('thumbnail')->store('thumbnails');
@@ -109,11 +111,11 @@ class VlogController extends Controller
         }
 
         // category
-        $vlog->categories()->sync($validatedVlog['categories']);
+        $vlog->categories()->sync(json_decode($validatedVlog['categories']));
 
         $vlog->save();
 
-        return $this->success(null, 'Updated Vlog', 200);
+        return $this->success(new VlogResource($vlog), 'Updated Vlog', 200);
     }
 
     /**
