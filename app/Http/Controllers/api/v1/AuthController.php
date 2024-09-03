@@ -14,7 +14,7 @@ class AuthController extends Controller
     use HttpResponses;
     
     public function login(AuthRequest $request) {
-        $user = User::where('username', $request->username)->firstOrFail();
+        $user = User::where('username', $request->username)->first();
 
         if ( !$user || !Hash::check($request->password, $user->password) ) {
             return $this->error('The provided credentials are incorrect.', 401);
