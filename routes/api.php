@@ -21,6 +21,7 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('list/category', [CategoryController::class, 'list']);
+        Route::post('/validate-token', [AuthController::class, 'validateToken']);
         Route::post('/logout', [AuthController::class, 'logout']);
     });
 });

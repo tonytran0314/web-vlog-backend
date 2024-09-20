@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\HttpResponses;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -23,6 +24,10 @@ class AuthController extends Controller
         $token = $user->createToken('api token')->plainTextToken;
  
         return $this->success(['token' => $token], 'Login Successfully', 200);
+    }
+
+    public function validateToken() {
+        return $this->success('Đăng nhập thành công', null, 200);
     }
 
     public function logout(Request $request) {
